@@ -5,7 +5,7 @@ import (
 	"log"
 	"strconv"
 	"strings"
-	"task1/struct1"
+	"task1/struct_emp"
 )
 
 func DeleteEmp(employees []struct_emp.Employee, reader *bufio.Reader,logger *log.Logger) {

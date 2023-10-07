@@ -2,7 +2,7 @@ package view
 
 import (
 	"log"
-	"task1/struct1"
+	"task1/struct_emp"
 )
 
 func ViewEmployeeDetails(employees []struct_emp.Employee,logger *log.Logger) {

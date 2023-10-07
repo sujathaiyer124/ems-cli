@@ -2,7 +2,7 @@ package display
 
 import (
 	"log"
-	struct_emp "task1/struct1"
+	struct_emp "task1/struct_emp"
 	"time"
 )
 

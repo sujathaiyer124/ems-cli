@@ -11,7 +11,7 @@ import (
 	delete "task1/delete_func"
 	display "task1/display_upcoming_birthday"
 	sort "task1/sort_func"
-	struct_emp "task1/struct1"
+	struct_emp "task1/struct_emp"
 	update "task1/update_func"
 	view "task1/view_func"
 )
@@ -27,7 +27,7 @@ func main() {
 	logger.Println("Employee Management System")
 
 	employees := []struct_emp.Employee{
-		{ID: 1, FirstName: "Sujatha", LastName: "Iyer", Email: "sujataiyer124@gmail.com", Password: "Password@123", PhoneNo: "2131231223", Role: "admin", Salary: 400000, DateOfBirth: dob.ParseDOB("1999-05-19")},
+		{ID: 1, FirstName: "Sujatha", LastName: "Iyer", Email: "sujataiyer124@gmail.com", Password: "Password@123", PhoneNo: "2131231223", Role: "admin", Salary: 400000, DateOfBirth: dob.ParseDOB("1999-10-19")},
 		{ID: 3, FirstName: "Nikita", LastName: "Patil", Email: "nikipatil123@gmail.com", Password: "niki@124", PhoneNo: "4765289763", Role: "user", Salary: 300000, DateOfBirth: dob.ParseDOB("1999-10-17")},
 		{ID: 2, FirstName: "Joey", LastName: "Bin", Email: "joebin167@gmail.com", Password: "goe@8888", PhoneNo: "9394949494", Role: "user", Salary: 300000, DateOfBirth: dob.ParseDOB("1999-02-19")},
 		{ID: 4, FirstName: "Shital", LastName: "Patil", Email: "shitalvyas111@gmail.com", Password: "shi123e", PhoneNo: "9994448882", Role: "admin", Salary: 400000, DateOfBirth: dob.ParseDOB("1999-10-20")},

@@ -6,7 +6,7 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	"task1/struct1"
+	"task1/struct_emp"
 )
 type Field []struct_emp.Employee
 

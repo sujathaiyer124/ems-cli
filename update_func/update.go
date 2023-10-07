@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 	add "task1/add_func"
-	struct_emp "task1/struct1"
+	struct_emp "task1/struct_emp"
 )
 
 func UpdateEmp(employees []struct_emp.Employee, reader *bufio.Reader, logger *log.Logger) {

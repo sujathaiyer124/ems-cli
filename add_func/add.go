@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"strconv"
 	"strings"
-	"task1/struct1"
+	"task1/struct_emp"
 	"time"
 )
 
