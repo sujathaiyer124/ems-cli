@@ -8,8 +8,8 @@ import (
 	"task1/struct1"
 )
 
-func DeleteEmp(employees []struct_emp.Employee, reader *bufio.Reader) {
-	log.Println("Enter which id you want to delete:")
+func DeleteEmp(employees []struct_emp.Employee, reader *bufio.Reader,logger *log.Logger) {
+	logger.Println("Enter which id you want to delete:")
 	id_to_delete, _ := reader.ReadString('\n')
 	id_to_delete = strings.TrimSpace(id_to_delete)
 	del, _ := strconv.Atoi(id_to_delete)
@@ -18,10 +18,10 @@ func DeleteEmp(employees []struct_emp.Employee, reader *bufio.Reader) {
 		if del == emp.ID {
 			id_found = true
 			employees = append(employees[:i], employees[i+1:]...)
-			log.Println("The employee has been deleted successfully")
+			logger.Println("The employee has been deleted successfully")
 		}
 	}
 	if !id_found {
-		log.Println("Enter correct id")
+		logger.Println("Enter correct id")
 	}
 }

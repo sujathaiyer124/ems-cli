@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"io"
 	"log"
 	"os"
 	"strings"
@@ -9,19 +10,21 @@ import (
 	dob "task1/dateofbirth"
 	delete "task1/delete_func"
 	display "task1/display_upcoming_birthday"
+	sort "task1/sort_func"
 	struct_emp "task1/struct1"
 	update "task1/update_func"
 	view "task1/view_func"
 )
 
 func main() {
-	file, err := os.OpenFile("logFile.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY,0644)
+	file, err := os.OpenFile("logFile.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
-	log.SetOutput(file) 
-	log.Println("Employee Management System")
+	logger := log.New(io.MultiWriter(os.Stdout, file), "", log.Ldate|log.Ltime|log.Lshortfile)
+	log.SetOutput(file)
+	logger.Println("Employee Management System")
 
 	employees := []struct_emp.Employee{
 		{ID: 1, FirstName: "Sujatha", LastName: "Iyer", Email: "sujataiyer124@gmail.com", Password: "Password@123", PhoneNo: "2131231223", Role: "admin", Salary: 400000, DateOfBirth: dob.ParseDOB("1999-05-19")},
@@ -31,64 +34,65 @@ func main() {
 	}
 
 	for {
-		log.Println("Are you user or admin? Type exit to stop")
+		logger.Println("Are you user or admin? Type exit to stop")
 		reader := bufio.NewReader(os.Stdin)
 		role, _ := reader.ReadString('\n')
 		role = strings.TrimSpace(role)
 		switch role {
 		case "admin":
-			log.Println("Welcome admin")
-			log.Println("What task you want to perform")
-			log.Println("1.Add Employee Details")
-			log.Println("2.View Employee Details")
-			log.Println("3.Update Employee Details")
-			log.Println("4.Delete Employee Details")
+			logger.Println("Welcome admin")
+			logger.Println("What task you want to perform")
+			logger.Println("1.Add Employee Details")
+			logger.Println("2.View Employee Details")
+			logger.Println("3.Update Employee Details")
+			logger.Println("4.Delete Employee Details")
 			action, err := reader.ReadString('\n')
 			action = strings.TrimSpace(action)
 
 			if err != nil {
-				log.Println("Invalid action.Select numbers from 1 to 4")
+				logger.Println("Invalid action.Select numbers from 1 to 4")
 				continue
 			}
 
 			switch action {
 			case "1":
 				//add employee details
-				var empdata = add.AddEmployeeDetails(reader)
+				var empdata = add.AddEmployeeDetails(reader, logger)
 				employees = append(employees, empdata)
-				log.Println("Addded employee info successfully")
+				logger.Println("Addded employee info successfully")
 
 			case "2":
 				//View employee details
-				log.Println("View employee details:")
-				view.ViewEmployeeDetails(employees)
+				logger.Println("View employee details:")
+				view.ViewEmployeeDetails(employees,logger)
 
 			case "3":
 				//update employee details
-				view.ViewEmployeeDetails(employees)
-				update.UpdateEmp(employees, reader)
+				view.ViewEmployeeDetails(employees,logger)
+				update.UpdateEmp(employees, reader, logger)
 			case "4":
 				//delete employee details
-				view.ViewEmployeeDetails(employees)
-				delete.DeleteEmp(employees, reader)
+				view.ViewEmployeeDetails(employees,logger)
+				delete.DeleteEmp(employees, reader,logger)
 
 			case "exit":
-				log.Println("Exiting the program.")
+				logger.Println("Exiting the program.")
 				return
 
 			default:
-				log.Println("Invalid action. Please enter a valid option.")
+				logger.Println("Invalid action. Please enter a valid option.")
 			}
 
 		case "user":
-			log.Println("Welcome user")
-			log.Println("Display upcoming birthday of colleague")
-			display.UpcomingBirthday(employees)
-			view.ViewEmployeeDetails(employees)
+			logger.Println("Welcome user")
+			logger.Println("Display upcoming birthday of colleague")
+			display.UpcomingBirthday(employees,logger)
+			sort.SortbyField(employees, reader, logger)
+			view.ViewEmployeeDetails(employees,logger)
 		case "exit":
 			return
 		default:
-			log.Println("Invalid role")
+			logger.Println("Invalid role")
 		}
 	}
 

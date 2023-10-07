@@ -51,9 +51,9 @@ func (a Field) RoleToSort(i, j int) bool {
 func (a Field) SalaryToSort(i, j int) bool {
 	return a[i].Salary < a[j].Salary
 }
-func SortbyField(employees []struct_emp.Employee, reader *bufio.Reader){
-log.Println("Employee sort according to specific function by \n 1.Id\n 2.FirstName\n 3.LastName \n4.Email \n 5.Phone Number \n 6.Role \n 7 Salary")
-			log.Println("Choose any option from the above")
+func SortbyField(employees []struct_emp.Employee, reader *bufio.Reader,logger *log.Logger){
+logger.Println("Employee sort according to specific function by \n 1.Id\n 2.FirstName\n 3.LastName \n4.Email \n 5.Phone Number \n 6.Role \n 7 Salary")
+			logger.Println("Choose any option from the above")
 			sortField1, _ := reader.ReadString('\n')
 			sortField1 = strings.TrimSpace(sortField1)
 			sortField, _ := strconv.Atoi(sortField1)
@@ -76,7 +76,7 @@ log.Println("Employee sort according to specific function by \n 1.Id\n 2.FirstNa
 				sortfunc = Field(employees).RoleToSort
 
 			default:
-				log.Println("Invalid sorting field.")
+				logger.Println("Invalid sorting field.")
 				
 			}
 			sort.SliceStable(employees, func(i, j int) bool {
